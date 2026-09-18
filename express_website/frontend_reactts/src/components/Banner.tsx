@@ -1,36 +1,56 @@
-// src/components/Banner.tsx
 import { useState, useEffect } from 'react';
-
-// 1. Import semua gambar yang ingin dijadikan slideshow
 import banner1 from '../assets/banner1.webp';
-// import banner2 from '../assets/banner2.webp'; // Uncomment jika sudah ada
-// import banner3 from '../assets/banner3.webp'; // Uncomment jika sudah ada
+import banner2 from '../assets/banner2.webp';
+import banner3 from '../assets/banner3.webp';
 
 const Banner = () => {
-  // Masukkan gambar-gambar ke dalam sebuah daftar (array)
   const slides = [
     banner1,
-    // banner2, // Tambahkan di sini jika sudah ada filenya
-    // banner3, // Tambahkan di sini jika sudah ada filenya
+    banner2, 
+    banner3, 
   ];
 
-  // State untuk melacak gambar yang sedang aktif (dimulai dari urutan ke-0 / pertama)
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Mengatur perpindahan gambar otomatis setiap 3 detik
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? slides.length - 1 : prevIndex - 1));
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 3000); // 3000 milidetik = 3 detik
+      nextSlide();
+    }, 5000);   
 
-    // Membersihkan timer saat komponen ditutup (praktik terbaik di React)
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [currentIndex]); 
 
   return (
-    <div className="relative w-full h-[500px] md:h-[980px] overflow-hidden">
+    <div className="relative w-full h-[500px] md:h-[980px] overflow-hidden group">
         
-        {/* Menampilkan gambar sesuai urutan (currentIndex) dengan efek transisi */}
+        <style>
+            {`
+            @keyframes slideInFromRight {
+                0% { opacity: 0; transform: translateX(100px); }
+                100% { opacity: 1; transform: translateX(0); }
+            }
+            .animate-slide-right {
+                animation: slideInFromRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            }
+            
+            @keyframes fillProgress {
+                0% { width: 0%; }
+                100% { width: 100%; }
+            }
+            .animate-progress {
+                animation: fillProgress 3s linear forwards; 
+            }
+            `}
+        </style>
+
         {slides.map((slide, index) => (
           <img 
               key={index}
@@ -44,25 +64,68 @@ const Banner = () => {
 
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-transparent z-10"></div>
 
-        <div className="absolute inset-0 flex flex-col justify-center max-w-7xl mx-10 px-6 sm:px-10 lg:px-16 z-20 w-full">
-            <div className="max-w-3xl animate-fade-in-up">
-                <span className="inline-block py-2 px-3 rounded-sm bg-yellow-400 border border-blue-500/30 text-black text-sm font-semibold tracking-wider mb-6 backdrop-blur-sm">
+        <button 
+            onClick={prevSlide}
+            className="hidden md:block absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 bg-white/10 hover:bg-white/30 border border-white/20 text-white rounded-full backdrop-blur-md transition-all opacity-70 hover:opacity-100"
+        >
+            <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <button 
+            onClick={nextSlide}
+            className="hidden md:block absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 bg-white/10 hover:bg-white/30 border border-white/20 text-white rounded-full backdrop-blur-md transition-all opacity-70 hover:opacity-100"
+        >
+            <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+
+        <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
+            {slides.map((_, index) => (
+                <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`relative h-2 rounded-full overflow-hidden transition-all duration-500 cursor-pointer ${
+                        index === currentIndex 
+                        ? 'w-16 bg-white/30'
+                        : 'w-2 bg-white/50 hover:bg-white/80' 
+                    }`}
+                >
+                    {index === currentIndex && (
+                        <div 
+                            key={currentIndex} 
+                            className="absolute top-0 left-0 h-full bg-yellow-400 animate-progress"
+                        ></div>
+                    )}
+                </button>
+            ))}
+        </div>
+
+        <div className="absolute inset-0 flex flex-col justify-center lg:mx-20 px-10 md:px-14 lg:px-24 z-20 w-full pointer-events-none">
+            <div key={currentIndex} className="max-w-3xl animate-slide-right pointer-events-auto">
+                <span className="inline-block py-1.5 px-3 md:py-2 md:px-3 rounded-sm bg-yellow-400 border border-blue-500/30 text-black text-xs md:text-sm font-semibold tracking-wider mb-4 md:mb-6 backdrop-blur-sm">
                     #1 MITRA LOGISTIK ANDA
                 </span>
 
-                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
-                   <span className="text-red-600">NSS</span> <span className="text-blue-600">EXPRESS</span>
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 md:mb-6 leading-tight">
+                   NSS EXPRESS
+                   {/* <span className="text-red-600">NSS</span> <span className="text-blue-600">EXPRESS</span> */}
                 </h1>
                
-                <p className="text-lg md:text-2xl text-slate-300 leading-relaxed mb-10 font-light max-w-2xl">
+                <p className="text-base md:text-xl lg:text-2xl text-slate-300 leading-relaxed mb-8 md:mb-10 font-light max-w-2xl">
                     Solusi logistik dan distribusi terpercaya untuk menjangkau seluruh Nusantara. <strong className="text-white font-semibold">Cepat, aman, dan tepat waktu</strong> ke tangan pelanggan Anda.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-5">
-                    <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-8 py-4 transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
-                        <span>Hubungi Kami</span>
-                    </button>
-                </div>
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-5">
+                  <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-4 py-2 text-sm md:px-8 md:py-4 md:text-lg transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                      </svg>
+                      <span>Hubungi Kami</span>
+                  </button>
+              </div>
             </div>
         </div>
     </div>
