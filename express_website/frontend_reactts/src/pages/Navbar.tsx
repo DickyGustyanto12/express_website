@@ -44,7 +44,7 @@ const Navbar = () => {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute top-full left-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 animate-fade-in-up">
+                <div className="absolute top-full left-0 w-48 bg-white rounded-sm shadow-xl border border-gray-100 py-2 animate-fade-in-up">
                   <a 
                     href="#reguler" 
                     className="block px-4 py-2.5 text-[16px] font-semibold text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
