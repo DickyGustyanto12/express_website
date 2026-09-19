@@ -9,16 +9,16 @@ import Footer from "./pages/Footer"
 function App() {
   return (
     <>
-      <div className="">
+      <div className="bg-gray-50">
             <Navbar />
             <Home />
             <Services />
-            <AboutUs />
+            <div className="bg-gray-950">
+              <AboutUs />
+            </div>
             <Cabang />
-        <div className="px-30 bg-gray-50">
-          <div className=" min-h-screen">
             <ContactUs />
-          </div>
+        <div className=" bg-gray-50">
         </div>
             <Footer />
       </div>

@@ -20,17 +20,17 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-950 text-white pt-16 pb-8 border-t-4 border-[#FFCC00]">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto min-w-full px-15 lg:px-45">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
-          <div className="flex flex-col">
-            <h2 className="text-3xl font-extrabold text-[#FFCC00] mb-4 tracking-wider">
+          <div className="flex flex-col items-start text-left">
+            <h2 className="text-3xl font-extrabold text-[#FFCC00] mb-4 tracking-wider w-full text-center md:text-left">
               NSS EXPRESS
             </h2>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-400 mb-6 leading-relaxed text-justify">
               Solusi logistik dan distribusi terpercaya untuk menjangkau seluruh Nusantara. Cepat, aman, dan tepat waktu ke tangan pelanggan Anda.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start w-full md:w-auto">
               <a href="#" className="bg-gray-800 p-2 rounded-full hover:bg-[#FFCC00] hover:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -51,13 +51,13 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col">
-            <h3 className="text-lg font-bold mb-6 text-white">Tautan Cepat</h3>
-            <ul className="space-y-3">
+          <div className="flex flex-col items-start text-left">
+            <h3 className="text-lg font-bold mb-6 text-white w-full text-center md:text-left">Tautan Cepat</h3>
+            <ul className="space-y-3 w-full">
               {tautanCepat.map((item, index) => (
                 <li key={index}>
-                  <a href={item.link} className="text-gray-400 hover:text-[#FFCC00] transition-colors duration-300 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#FFCC00] rounded-full"></span>
+                  <a href={item.link} className="text-gray-400 hover:text-[#FFCC00] transition-colors duration-300 flex items-center justify-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-[#FFCC00] rounded-full flex-shrink-0"></span>
                     {item.nama}
                   </a>
                 </li>
@@ -65,13 +65,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col">
-            <h3 className="text-lg font-bold mb-6 text-white">Layanan Kami</h3>
-            <ul className="space-y-3">
+          <div className="flex flex-col items-start text-left">
+            <h3 className="text-lg font-bold mb-6 text-white w-full text-center md:text-left">Layanan Kami</h3>
+            <ul className="space-y-3 w-full">
               {daftarLayanan.map((item, index) => (
                 <li key={index}>
-                  <a href={item.link} className="text-gray-400 hover:text-[#FFCC00] transition-colors duration-300 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#FFCC00] rounded-full"></span>
+                  <a href={item.link} className="text-gray-400 hover:text-[#FFCC00] transition-colors duration-300 flex items-center justify-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-[#FFCC00] rounded-full flex-shrink-0"></span>
                     {item.nama}
                   </a>
                 </li>
@@ -79,24 +79,24 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col">
-            <h3 className="text-lg font-bold mb-6 text-white">Hubungi Kami</h3>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
+          <div className="flex flex-col items-start text-left">
+            <h3 className="text-lg font-bold mb-6 text-white w-full text-center md:text-left">Hubungi Kami</h3>
+            <div className="space-y-4 w-full">
+              <div className="flex items-start gap-3 justify-start">
                 <MapPin size={20} className="text-[#FFCC00] flex-shrink-0 mt-1" />
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed text-left">
                   Jl. Logistik Nusantara No. 123, Jakarta Pusat, DKI Jakarta
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 justify-start">
                 <Phone size={20} className="text-[#FFCC00] flex-shrink-0" />
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-sm text-left">
                   +62 21 555 1234
                 </p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 justify-start">
                 <Mail size={20} className="text-[#FFCC00] flex-shrink-0" />
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-400 text-sm text-left">
                   info@nssexpress.com
                 </p>
               </div>
@@ -105,11 +105,11 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500 text-center md:text-left">
           <p>
             &copy; {tahunSekarang} NSS Express. Hak Cipta Dilindungi.
           </p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 justify-center">
             <a href="#" className="hover:text-[#FFCC00] transition-colors">Syarat & Ketentuan</a>
             <a href="#" className="hover:text-[#FFCC00] transition-colors">Kebijakan Privasi</a>
           </div>
@@ -119,4 +119,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer;  

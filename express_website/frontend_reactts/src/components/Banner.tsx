@@ -29,7 +29,7 @@ const Banner = () => {
   }, [currentIndex]); 
 
   return (
-    <div className="relative w-full h-[500px] md:h-[980px] overflow-hidden group">
+    <div className="relative w-full h-[700px] md:h-[900px] overflow-hidden group">
         
         <style>
             {`
@@ -82,7 +82,7 @@ const Banner = () => {
             </svg>
         </button>
 
-        <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
+        <div className="absolute bottom-10 md:bottom-20 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
             {slides.map((_, index) => (
                 <button
                     key={index}
@@ -119,7 +119,7 @@ const Banner = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-5">
-                  <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-4 py-2 text-sm md:px-8 md:py-4 md:text-lg transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+                  <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-4 w-fit py-2 text-sm md:px-8 md:py-4 md:text-lg transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
                       <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                       </svg>
