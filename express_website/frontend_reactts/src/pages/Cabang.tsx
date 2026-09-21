@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, MapPin, ExternalLink } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
@@ -77,7 +77,7 @@ const Cabang = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-10 lg:mx-0">
+    <section id="alamat" className="py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-10 lg:mx-0 scroll-mt-24">
       <div className="container px-10 md:px-10 max-w-full lg:px-45">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           

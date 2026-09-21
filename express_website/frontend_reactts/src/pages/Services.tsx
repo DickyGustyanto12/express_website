@@ -5,18 +5,21 @@ const Services = () => {
   const daftarLayanan = [
     {
       id: 1,
+      targetId: "reguler",
       judul: "Layanan Reguler",
       deskripsi: "Pengiriman standar dengan harga terjangkau ke seluruh pelosok Nusantara. Cocok untuk kebutuhan sehari-hari.",
       ikon: <Package size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
     },
     {
       id: 2,
+      targetId: "next",
       judul: "Same Day Service",
       deskripsi: "Barang sampai di hari yang sama. Solusi cepat, aman, dan tepat waktu ke tangan pelanggan Anda.",
       ikon: <Clock size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
     },
     {
       id: 3,
+      targetId: "kargo",
       judul: "Kargo & Distribusi",
       deskripsi: "Solusi pengiriman barang dalam jumlah atau ukuran besar dengan armada truk kami yang tangguh.",
       ikon: <Truck size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
@@ -24,9 +27,8 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50 overflow-hidden mx-10 md:mx-20 lg:mx-20">
+    <section id="layanan" className="py-16 bg-gray-50 overflow-hidden mx-10 md:mx-20 lg:mx-20 scroll-mt-24">
       <div className="container mx-auto px-4 max-w-6xl">
-        
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,11 +51,12 @@ const Services = () => {
           {daftarLayanan.map((layanan, index) => (
             <motion.div 
               key={layanan.id} 
+              id={layanan.targetId}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-white p-8 rounded-lg shadow-md border-t-4 border-[#FFCC00] cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl text-center md:text-left"
+              className="bg-white p-8 rounded-lg shadow-md border-t-4 border-[#FFCC00] cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl text-center md:text-left scroll-mt-28"
             >
               {layanan.ikon}
               <h3 className="text-xl font-bold text-gray-800 mb-3">
@@ -69,7 +72,6 @@ const Services = () => {
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

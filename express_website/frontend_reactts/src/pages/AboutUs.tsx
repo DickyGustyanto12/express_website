@@ -31,9 +31,8 @@ const AboutUs = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-950 overflow-hidden text-white">
+    <section id="tentang-kami" className="py-20 bg-gray-950 overflow-hidden text-white scroll-mt-24">
       <div className="container px-20 md:px-10 max-w-full lg:px-45">
-        
         <div className="flex flex-col md:flex-row items-center gap-16 mb-20">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
@@ -56,7 +55,6 @@ const AboutUs = () => {
             </p>
           </motion.div>
 
-          {/* === BAGIAN STATISTIK KOTAK TERPISAH YANG DIRAPATKAN === */}
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -101,7 +99,6 @@ const AboutUs = () => {
             ))}
           </div>
         </motion.div>
-
       </div>
     </section>
   );

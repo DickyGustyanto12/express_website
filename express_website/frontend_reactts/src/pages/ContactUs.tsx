@@ -1,16 +1,21 @@
 import { motion } from 'framer-motion';
 import { MessageSquareText, Headphones, ArrowRight } from 'lucide-react';
 
-const ContactUs = () => {
+interface ContactUsProps {
+  onBukaChat?: () => void;
+}
+
+const ContactUs = ({ onBukaChat }: ContactUsProps) => {
   const handleChatCS = () => {
-    window.open('https://wa.me/6281234567890?text=Halo%20NSS%20Express,%20saya%20ingin%20bertanya%20mengenai%20pengiriman.', '_blank');
+    if (onBukaChat) {
+      onBukaChat();
+    }
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden text-gray-900">
+    <section id="kontak" className="py-16 md:py-24 bg-white overflow-hidden text-gray-900 scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20 max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
-          
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -23,7 +28,7 @@ const ContactUs = () => {
             </span>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight">
-              Punya Pertanyaan atau Tedapat Kendala?
+              Punya Pertanyaan atau Terdapat Kendala?
             </h2>
             
             <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed max-w-xl text-justify md:text-left mx-auto md:mx-0">
@@ -51,7 +56,6 @@ const ContactUs = () => {
               <Headphones size={90} className="text-yellow-600 animate-bounce" />
             </div>
           </motion.div>
-
         </div>
       </div>
     </section>
