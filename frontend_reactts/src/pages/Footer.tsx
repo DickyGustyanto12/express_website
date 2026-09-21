@@ -19,9 +19,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-950 text-white pt-16 pb-8 border-t-4 border-[#FFCC00]">
-      <div className="container mx-auto min-w-full px-15 lg:px-45">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer className="bg-gray-950 text-white pt-12 md:pt-16 pb-8 border-t-4 border-[#FFCC00]">
+      <div className="container mx-auto min-w-full px-5 sm:px-8 md:px-10 lg:px-45">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
           
           <div className="flex flex-col items-start text-left">
             <h2 className="text-3xl font-extrabold text-[#FFCC00] mb-4 tracking-wider w-full text-center md:text-left">

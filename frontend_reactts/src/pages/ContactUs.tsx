@@ -13,7 +13,7 @@ const ContactUs = ({ onBukaChat }: ContactUsProps) => {
   };
 
   return (
-    <section id="kontak" className="py-16 md:py-24 bg-white overflow-hidden text-gray-900 scroll-mt-24">
+    <section id="kontak" className="py-12 md:py-24 bg-white overflow-hidden text-gray-900 scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20 max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
           <motion.div 
@@ -27,11 +27,11 @@ const ContactUs = ({ onBukaChat }: ContactUsProps) => {
               Hubungi Kami
             </span>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight">
               Punya Pertanyaan atau Terdapat Kendala?
             </h2>
             
-            <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed max-w-xl text-justify md:text-left mx-auto md:mx-0">
+            <p className="text-gray-600 text-sm sm:text-base md:text-lg mb-6 md:mb-8 leading-relaxed max-w-xl text-justify md:text-left mx-auto md:mx-0">
               Jangan ragu, Tim Customer Service kami yang ramah siap membantu merespons segala pertanyaan atau keluhan logistik Anda secara cepat via chat.
             </p>
             
@@ -52,8 +52,8 @@ const ContactUs = ({ onBukaChat }: ContactUsProps) => {
             transition={{ duration: 0.6 }}
             className="w-full md:w-5/12 flex justify-center items-center"
           >
-            <div className="relative bg-[#FFCC00]/20 p-12 md:p-16 rounded-full border border-[#FFCC00]/40 shadow-inner">
-              <Headphones size={90} className="text-yellow-600 animate-bounce" />
+            <div className="relative bg-[#FFCC00]/20 p-8 sm:p-12 md:p-16 rounded-full border border-[#FFCC00]/40 shadow-inner">
+              <Headphones size={70} className="text-yellow-600 animate-bounce" />
             </div>
           </motion.div>
         </div>

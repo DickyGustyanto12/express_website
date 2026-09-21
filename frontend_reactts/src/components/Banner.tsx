@@ -29,7 +29,7 @@ const Banner = () => {
   }, [currentIndex]); 
 
   return (
-    <div className="relative w-full h-[700px] md:h-[900px] overflow-hidden group">
+    <div className="relative w-full h-[520px] sm:h-[600px] md:h-[800px] lg:h-[900px] overflow-hidden group">
         
         <style>
             {`
@@ -103,23 +103,23 @@ const Banner = () => {
             ))}
         </div>
 
-        <div className="absolute inset-0 flex flex-col justify-center lg:mx-20 px-10 md:px-14 lg:px-24 z-20 w-full pointer-events-none">
+        <div className="absolute inset-0 flex flex-col justify-center lg:mx-20 px-5 sm:px-8 md:px-14 lg:px-24 z-20 w-full pointer-events-none">
             <div key={currentIndex} className="max-w-3xl animate-slide-right pointer-events-auto">
-                <span className="inline-block py-1.5 px-3 md:py-2 md:px-3 rounded-sm bg-yellow-400 border border-blue-500/30 text-black text-xs md:text-sm font-semibold tracking-wider mb-4 md:mb-6 backdrop-blur-sm">
+                <span className="inline-block py-1 px-2.5 md:py-2 md:px-3 rounded-sm bg-yellow-400 border border-blue-500/30 text-black text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider mb-3 md:mb-6 backdrop-blur-sm">
                     #1 MITRA LOGISTIK ANDA
                 </span>
 
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 md:mb-6 leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white mb-3 md:mb-6 leading-tight">
                    NSS EXPRESS
                    {/* <span className="text-red-600">NSS</span> <span className="text-blue-600">EXPRESS</span> */}
                 </h1>
                
-                <p className="text-base md:text-xl lg:text-2xl text-slate-300 leading-relaxed mb-8 md:mb-10 font-light max-w-2xl">
+                <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-slate-300 leading-relaxed mb-6 md:mb-10 font-light max-w-2xl">
                     Solusi logistik dan distribusi terpercaya untuk menjangkau seluruh Nusantara. <strong className="text-white font-semibold">Cepat, aman, dan tepat waktu</strong> ke tangan pelanggan Anda.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-5">
-                  <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-4 w-fit py-2 text-sm md:px-8 md:py-4 md:text-lg transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
+                  <button className="cursor-pointer group rounded-sm flex items-center justify-center gap-2 bg-white text-slate-900 font-extrabold px-5 w-fit py-2.5 text-sm md:px-8 md:py-4 md:text-lg transition-all duration-300 hover:bg-yellow-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]">
                       <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                       </svg>

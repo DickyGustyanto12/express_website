@@ -31,8 +31,8 @@ const AboutUs = () => {
   ];
 
   return (
-    <section id="tentang-kami" className="py-20 bg-gray-950 overflow-hidden text-white scroll-mt-24">
-      <div className="container px-20 md:px-10 max-w-full lg:px-45">
+    <section id="tentang-kami" className="py-14 md:py-20 bg-gray-950 overflow-hidden text-white scroll-mt-24">
+      <div className="container px-5 sm:px-8 md:px-10 max-w-full lg:px-45">
         <div className="flex flex-col md:flex-row items-center gap-16 mb-20">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
@@ -44,13 +44,13 @@ const AboutUs = () => {
             <span className="bg-[#FFCC00] text-black font-bold py-1 px-3 rounded text-sm mb-4 inline-block">
               # TENTANG KAMI
             </span>
-            <h2 className="text-4xl font-extrabold mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 md:mb-6 leading-tight">
               Menjadi Penggerak Utama Rantai Pasok Nusantara
             </h2>
-            <p className="text-gray-400 text-lg leading-relaxed mb-6 text-justify md:text-left">
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-4 md:mb-6 text-justify md:text-left">
               Berawal dari sebuah komitmen kecil untuk membantu UMKM lokal, kami telah berkembang menjadi mitra logistik terpercaya dengan ribuan rute pengiriman setiap harinya. 
             </p>
-            <p className="text-gray-400 text-lg leading-relaxed text-justify md:text-left">
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed text-justify md:text-left">
               Kami tidak hanya memindahkan barang, tapi kami memastikan roda bisnis Anda terus berputar dengan efisien, aman, dan tanpa hambatan.
             </p>
           </motion.div>
@@ -78,7 +78,7 @@ const AboutUs = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold mb-4">Mengapa Memilih Kami?</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">Mengapa Memilih Kami?</h3>
             <div className="w-24 h-1 bg-[#FFCC00] mx-auto rounded"></div>
           </div>
 

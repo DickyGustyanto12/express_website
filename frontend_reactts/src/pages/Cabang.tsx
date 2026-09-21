@@ -77,8 +77,8 @@ const Cabang = () => {
   };
 
   return (
-    <section id="alamat" className="py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-10 lg:mx-0 scroll-mt-24">
-      <div className="container px-10 md:px-10 max-w-full lg:px-45">
+    <section id="alamat" className="py-14 md:py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-4 sm:mx-6 lg:mx-0 scroll-mt-24">
+      <div className="container px-4 sm:px-6 md:px-10 max-w-full lg:px-45">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           
           <motion.div
@@ -92,10 +92,10 @@ const Cabang = () => {
               <span className="bg-[#FFCC00] text-black font-bold py-1 px-3 rounded text-sm mb-4 inline-block">
                 # LOKASI CABANG
               </span>
-              <h2 className="text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 md:mb-4 leading-tight">
                 Temukan Cabang NSS Express Terdekat
               </h2>
-              <p className="text-gray-600 text-lg leading-relaxed text-justify lg:text-left">
+              <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed text-justify lg:text-left">
                 Pilih atau cari cabang pada peta untuk melihat detail lokasi operasional kami.
               </p>
             </div>
