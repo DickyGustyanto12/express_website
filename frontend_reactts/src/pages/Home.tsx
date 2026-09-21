@@ -1,11 +1,15 @@
 import Banner from '../components/Banner'
 
-const Home = () => {
+interface HomeProps {
+  onBukaChat?: () => void;
+}
+
+const Home = ({ onBukaChat }: HomeProps) => {
   return (
     <div id="beranda" className="scroll-mt-24">
-      <Banner />
+      <Banner onBukaChat={onBukaChat} />
     </div>
   )
 }
 
-export default Home;
+export default Home;

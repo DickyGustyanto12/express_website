@@ -11,18 +11,11 @@ const Footer = () => {
     { nama: "Kontak", link: "#" }
   ];
 
-  const daftarLayanan = [
-    { nama: "Layanan Reguler", link: "#" },
-    { nama: "Same Day Service", link: "#" },
-    { nama: "Kargo & Distribusi", link: "#" },
-    { nama: "Lacak Paket", link: "#" }
-  ];
-
   return (
     <footer className="bg-gray-950 text-white pt-12 md:pt-16 pb-8 border-t-4 border-[#FFCC00]">
       <div className="container mx-auto min-w-full px-5 sm:px-8 md:px-10 lg:px-45">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
-          
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-12">
+
           <div className="flex flex-col items-start text-left">
             <h2 className="text-3xl font-extrabold text-[#FFCC00] mb-4 tracking-wider w-full text-center md:text-left">
               NSS EXPRESS
@@ -66,32 +59,18 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col items-start text-left">
-            <h3 className="text-lg font-bold mb-6 text-white w-full text-center md:text-left">Layanan Kami</h3>
-            <ul className="space-y-3 w-full">
-              {daftarLayanan.map((item, index) => (
-                <li key={index}>
-                  <a href={item.link} className="text-gray-400 hover:text-[#FFCC00] transition-colors duration-300 flex items-center justify-start gap-2">
-                    <span className="w-1.5 h-1.5 bg-[#FFCC00] rounded-full flex-shrink-0"></span>
-                    {item.nama}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col items-start text-left">
             <h3 className="text-lg font-bold mb-6 text-white w-full text-center md:text-left">Hubungi Kami</h3>
             <div className="space-y-4 w-full">
               <div className="flex items-start gap-3 justify-start">
                 <MapPin size={20} className="text-[#FFCC00] flex-shrink-0 mt-1" />
                 <p className="text-gray-400 text-sm leading-relaxed text-left">
-                  Jl. Logistik Nusantara No. 123, Jakarta Pusat, DKI Jakarta
+                  Jl. Brigdjen Katamso No.5, Slipi, Jakarta Barat
                 </p>
               </div>
               <div className="flex items-center gap-3 justify-start">
                 <Phone size={20} className="text-[#FFCC00] flex-shrink-0" />
                 <p className="text-gray-400 text-sm text-left">
-                  +62 21 555 1234
+                  0811-2551-010
                 </p>
               </div>
               <div className="flex items-center gap-3 justify-start">
