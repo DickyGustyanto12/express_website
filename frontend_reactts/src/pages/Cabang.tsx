@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, MapPin, ExternalLink } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Search, MapPin, ExternalLink } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const penandaKuning = L.icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
 });
 
 L.Marker.prototype.options.icon = penandaKuning;
@@ -45,31 +47,33 @@ const Cabang = () => {
       lat: -6.1892425,
       lng: 106.8011406,
       alamat: "Jl. Brigdjen Katamso No.5, Slipi, Jakarta Barat",
-      linkMaps: "https://maps.app.goo.gl/P9GCzTuXhcoqXU2v7"
+      linkMaps: "https://maps.app.goo.gl/P9GCzTuXhcoqXU2v7",
     },
     {
       id: 2,
       kota: "Semarang",
       lat: -6.9932,
       lng: 110.4203,
-      alamat: "Jl. Kaligawe Raya, Terboyo Kulon, Kec. Genuk, Kota Semarang, Jawa Tengah 50112",
-      linkMaps: "https://maps.app.goo.gl/mAhZznDVrrPCyBTcA"
+      alamat:
+        "Jl. Kaligawe Raya, Terboyo Kulon, Kec. Genuk, Kota Semarang, Jawa Tengah 50112",
+      linkMaps: "https://maps.app.goo.gl/mAhZznDVrrPCyBTcA",
     },
     {
       id: 3,
       kota: "Surabaya",
       lat: -7.3728327,
       lng: 112.7662824,
-      alamat: "Pergudangan 88 Blok B27 Jl. Raya Pabean"
-    }
+      alamat: "Pergudangan 88 Blok B27 Jl. Raya Pabean",
+    },
   ];
 
   const tanganiPencarian = () => {
     if (!kataKunci.trim()) return;
 
-    const hasilPencarian = daftarCabang.find((cabang) =>
-      cabang.kota.toLowerCase().includes(kataKunci.toLowerCase()) ||
-      cabang.alamat.toLowerCase().includes(kataKunci.toLowerCase())
+    const hasilPencarian = daftarCabang.find(
+      (cabang) =>
+        cabang.kota.toLowerCase().includes(kataKunci.toLowerCase()) ||
+        cabang.alamat.toLowerCase().includes(kataKunci.toLowerCase()),
     );
 
     if (hasilPencarian) {
@@ -80,10 +84,12 @@ const Cabang = () => {
   };
 
   return (
-    <section id="alamat" className="py-14 md:py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-4 sm:mx-6 lg:mx-0 scroll-mt-24">
+    <section
+      id="cabang"
+      className="py-14 md:py-20 bg-gray-50 overflow-hidden border-t border-gray-200 mx-4 sm:mx-6 lg:mx-0 scroll-mt-24"
+    >
       <div className="container px-4 sm:px-6 md:px-10 max-w-full lg:px-45">
         <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start">
-
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -99,7 +105,8 @@ const Cabang = () => {
                 Temukan Cabang NSS Express Terdekat
               </h2>
               <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed text-justify lg:text-left">
-                Pilih atau cari cabang pada peta untuk melihat detail lokasi operasional kami.
+                Pilih atau cari cabang pada peta untuk melihat detail lokasi
+                operasional kami.
               </p>
             </div>
 
@@ -111,7 +118,7 @@ const Cabang = () => {
                 type="text"
                 value={kataKunci}
                 onChange={(e) => setKataKunci(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && tanganiPencarian()}
+                onKeyDown={(e) => e.key === "Enter" && tanganiPencarian()}
                 placeholder="Masukkan kota atau kecamatan"
                 className="w-full px-4 py-4 focus:outline-none text-gray-700"
               />
@@ -134,13 +141,20 @@ const Cabang = () => {
                     <MapPin size={20} className="text-[#FFCC00]" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">NSS Express {cabangTerpilih.kota}</h3>
-                    <p className="text-gray-600 leading-relaxed text-justify lg:text-left">{cabangTerpilih.alamat}</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      NSS Express {cabangTerpilih.kota}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-justify lg:text-left">
+                      {cabangTerpilih.alamat}
+                    </p>
                   </div>
                 </div>
 
                 <a
-                  href={cabangTerpilih.linkMaps || `https://www.google.com/maps/search/?api=1&query=${cabangTerpilih.lat},${cabangTerpilih.lng}`}
+                  href={
+                    cabangTerpilih.linkMaps ||
+                    `https://www.google.com/maps/search/?api=1&query=${cabangTerpilih.lat},${cabangTerpilih.lng}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-[#FFCC00] hover:bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg transition-colors duration-300 text-sm mt-2"
@@ -163,7 +177,7 @@ const Cabang = () => {
               center={titikTengahPeta}
               zoom={5}
               scrollWheelZoom={true}
-              style={{ height: '100%', width: '100%' }}
+              style={{ height: "100%", width: "100%" }}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -171,7 +185,10 @@ const Cabang = () => {
               />
 
               {cabangTerpilih && (
-                <PengaturTampilanPeta lat={cabangTerpilih.lat} lng={cabangTerpilih.lng} />
+                <PengaturTampilanPeta
+                  lat={cabangTerpilih.lat}
+                  lng={cabangTerpilih.lng}
+                />
               )}
 
               {daftarCabang.map((cabang) => (
@@ -179,18 +196,19 @@ const Cabang = () => {
                   key={cabang.id}
                   position={[cabang.lat, cabang.lng]}
                   eventHandlers={{
-                    click: () => setCabangTerpilih(cabang)
+                    click: () => setCabangTerpilih(cabang),
                   }}
                 >
                   <Popup>
                     <div className="font-bold text-gray-900">{cabang.kota}</div>
-                    <div className="text-gray-600 text-xs mt-1">Klik penanda untuk melihat detail</div>
+                    <div className="text-gray-600 text-xs mt-1">
+                      Klik penanda untuk melihat detail
+                    </div>
                   </Popup>
                 </Marker>
               ))}
             </MapContainer>
           </motion.div>
-
         </div>
       </div>
     </section>
