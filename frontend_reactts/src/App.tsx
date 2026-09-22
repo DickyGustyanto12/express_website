@@ -11,6 +11,8 @@ import ChatWidget from './components/ChatWidget';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedLayout from './pages/ProtectedLayout';
+import Tracking from './pages/Tracking';
+import CekOngkir from './pages/CekOngkir';
 
 const HalamanUtama = () => {
   const [bukaChat, setBukaChat] = useState(false);
@@ -19,6 +21,16 @@ const HalamanUtama = () => {
     <div className="bg-gray-50 relative">
       <Navbar />
       <Home onBukaChat={() => setBukaChat(true)} />
+      <div className="w-full mx-auto">
+        <div className="flex justify-center">
+          <div className="w-full lg:w-1/2 outline">
+            <Tracking />
+          </div>
+          <div className="w-full lg:w-1/2 h-20">
+            <CekOngkir />
+          </div>
+        </div>
+      </div>
       <Services />
       <div className="bg-gray-950">
         <AboutUs />

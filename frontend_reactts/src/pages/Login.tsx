@@ -28,9 +28,10 @@ const Login = () => {
                 title: 'Login Berhasil!',
                 text: 'Selamat datang kembali di panel internal NSS Express.',
                 icon: 'success',
-                confirmButtonColor: '#FFCC00',
-                confirmButtonText: 'Masuk ke Dashboard',
-                color: '#1f2937',
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                color: '#31371fff',
                 background: '#ffffff',
             }).then(() => {
                 navigate('/internal/dashboard');

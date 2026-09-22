@@ -116,7 +116,7 @@ const Banner = ({ onBukaChat }: BannerProps) => {
                         {/* <span className="text-red-600">NSS</span> <span className="text-blue-600">EXPRESS</span> */}
                     </h1>
 
-                    <p className="text-sm sm:text-base md:text-xl lg:text-3xl text-slate-300 leading-relaxed mb-6 md:mb-10 font-light max-w-2xl">
+                    <p className="text-sm sm:text-base md:text-xl lg:text-3xl text-white leading-relaxed mb-6 md:mb-10 font-light max-w-2xl">
                         Solusi logistik dan distribusi terpercaya untuk menjangkau seluruh Nusantara. <strong className="text-white font-semibold">Cepat, aman, dan tepat waktu</strong> ke tangan pelanggan Anda.
                     </p>
 

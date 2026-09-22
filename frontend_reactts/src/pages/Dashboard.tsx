@@ -10,9 +10,11 @@ const Dashboard = () => {
         Swal.fire({
             title: 'Berhasil Keluar',
             text: 'Anda telah keluar dari panel internal.',
-            icon: 'info',
-            confirmButtonColor: '#FFCC00',
-            color: '#1f2937',
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            color: '#31371fff',
             background: '#ffffff',
         }).then(() => {
             navigate('/internal');
