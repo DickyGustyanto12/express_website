@@ -1,34 +1,39 @@
-import { motion } from 'framer-motion';
-import { Package, Clock, Truck } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Package, TruckElectric } from "lucide-react";
 
 const Services = () => {
   const daftarLayanan = [
     {
       id: 1,
       targetId: "reguler",
-      judul: "Layanan Reguler",
-      deskripsi: "Pengiriman standar dengan harga terjangkau ke seluruh pelosok Nusantara. Cocok untuk kebutuhan sehari-hari.",
-      ikon: <Package size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
+      judul: "Reguler",
+      deskripsi:
+        "Pengiriman standar yang handal dan ekonomis ke seluruh wilayah dengan estimasi waktu yang jelas dan terukur.",
+      ikon: (
+        <Package size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
+      ),
     },
     {
       id: 2,
       targetId: "next",
-      judul: "Same Day Service",
-      deskripsi: "Barang sampai di hari yang sama. Solusi cepat, aman, dan tepat waktu ke tangan pelanggan Anda.",
-      ikon: <Clock size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
+      judul: "Next Day",
+      deskripsi:
+        "Pengiriman kilat prioritas yang menjamin paket Anda tiba di kota tujuan keesokan harinya secara tepat waktu.",
+      ikon: (
+        <TruckElectric
+          size={48}
+          className="text-[#FFCC00] mb-4 mx-auto md:mx-0"
+        />
+      ),
     },
-    {
-      id: 3,
-      targetId: "kargo",
-      judul: "Kargo & Distribusi",
-      deskripsi: "Solusi pengiriman barang dalam jumlah atau ukuran besar dengan armada truk kami yang tangguh.",
-      ikon: <Truck size={48} className="text-[#FFCC00] mb-4 mx-auto md:mx-0" />
-    }
   ];
 
   return (
-    <section id="layanan" className="py-10 md:py-16 bg-gray-50 overflow-hidden mx-4 sm:mx-6 md:mx-10 lg:mx-20 scroll-mt-24">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section
+      id="layanan"
+      className="py-10 md:py-16 bg-gray-50 overflow-hidden mx-4 sm:mx-6 md:mx-10 lg:mx-20 scroll-mt-24"
+    >
+      <div className="container mx-auto px-4 max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,14 +48,15 @@ const Services = () => {
             Solusi Logistik &amp; Distribusi
           </h2>
           <p className="text-gray-600 mt-3 md:mt-4 max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-justify md:text-center">
-            Kami menyediakan berbagai pilihan pengiriman yang cepat, aman, dan dapat diandalkan untuk menunjang bisnis Anda.
+            Kami menyediakan pilihan pengiriman Reguler dan Next Day yang cepat,
+            aman, dan dapat diandalkan untuk menunjang kebutuhan Anda.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {daftarLayanan.map((layanan, index) => (
-            <motion.div 
-              key={layanan.id} 
+            <motion.div
+              key={layanan.id}
               id={layanan.targetId}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -62,13 +68,9 @@ const Services = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-3">
                 {layanan.judul}
               </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed text-justify md:text-left">
+              <p className="text-gray-600 leading-relaxed text-justify md:text-left">
                 {layanan.deskripsi}
               </p>
-              
-              <button className="bg-gray-900 hover:bg-gray-800 text-white font-semibold py-2 px-6 rounded transition-colors duration-300 text-sm w-full">
-                Lihat Detail
-              </button>
             </motion.div>
           ))}
         </div>

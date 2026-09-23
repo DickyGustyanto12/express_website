@@ -1,108 +1,189 @@
 import { useState } from "react";
-import { Container, MapPinned, MapPinCheck, BanknoteCheck } from "lucide-react";
+import {
+  Container,
+  MapPinned,
+  MapPinCheck,
+  BanknoteCheck,
+  X,
+} from "lucide-react";
+import Swal from "sweetalert2";
 
 const CekOngkir = () => {
   const [berat, setBerat] = useState("");
   const [kotaAsal, setKotaAsal] = useState("");
   const [kotaTujuan, setKotaTujuan] = useState("");
+  const [modalBuka, setModalBuka] = useState(false);
+  const [hasilOngkir, setHasilOngkir] = useState<any[] | null>(null);
+
+  const handleCekOngkir = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!berat.trim() || !kotaAsal.trim() || !kotaTujuan.trim()) {
+      Swal.fire({
+        title: "Kolom Belum Lengkap",
+        text: "Mohon isi Berat Barang, Kota Asal, dan Kota Tujuan terlebih dahulu!",
+        icon: "warning",
+        confirmButtonColor: "#FFCC00",
+        color: "#1f2937",
+        background: "#ffffff",
+      });
+      return;
+    }
+
+    const beratNum = parseFloat(berat) || 1;
+    setHasilOngkir([
+      {
+        layanan: "Reguler (REG)",
+        estimasi: "2-3 Hari",
+        harga: `Rp ${(15000 * beratNum).toLocaleString("id-ID")}`,
+      },
+      {
+        layanan: "Next Day (NEXT)",
+        estimasi: "1 Hari",
+        harga: `Rp ${(35000 * beratNum).toLocaleString("id-ID")}`,
+      },
+    ]);
+
+    setModalBuka(true);
+  };
+
   return (
-    <div className="bg-black py-20">
-      {/* <div className="card-lg min-w-fit p-10 rounded-sm bg-white shadow-sm mx-auto text-center w-42">
-                <figure>
-                    <img
-                        src=""
-                        alt="" />
-                </figure>
-                <div className="card-body text-center">
-                    <p className="font-bold text-4xl text-black">Cek Ongkos Kirim</p>
-                    <p className="text-black">Masukkan Kota asal dan Kota tujuan pengiriman anda.</p>
-                </div>
-                <label className="input rounded-sm bg-white border border-black text-black">
-                    <svg className="h-[1em] opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g
-                            strokeLinejoin="round"
-                            strokeLinecap="round"
-                            strokeWidth="2.5"
-                            fill="none"
-                            stroke="black"
-                        >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" required placeholder="Search" /> 
-                </label>
-            </div>*/}
-      <div className="text-left md:text-center">
+    <div className="bg-black py-16 px-4 md:px-8">
+      <div className="text-center max-w-3xl mx-auto">
         <span className="bg-[#FFCC00] text-black font-bold py-1 px-3 rounded text-sm mb-4 inline-block">
           # Cek Ongkir
         </span>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
           Cek Biaya Ongkos Kirim Paket
         </h2>
-        <p className="text-white mt-1">
-          Masukkan Kota asal dan Kota tujuan pengiriman anda.
+        <p className="text-gray-300 text-sm md:text-base mt-1">
+          Masukkan Kota asal, Kota tujuan, dan berat pengiriman Anda.
         </p>
       </div>
 
-      <div className="flex-col lg:flex lg:flex-row mt-8 mb-1 space-y-10 justify-center">
-        <div className="md:pr-15">
-          <p className="mb-2">Berat Barang :</p>
-          <div className="flex">
-            <button className="bg-yellow-400 hover:bg-yellow-300 text-black px-2 py-4 transition-colors cursor-pointer rounded-l-sm">
-              <Container />
-            </button>
-            <input
-              type="text"
-              value={berat}
-              onChange={(e) => setBerat(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter"}
-              placeholder="Berat (Kg)"
-              className="w-26 px-4 py-4 focus:outline-none text-gray-700 bg-white  rounded-r-sm"
-            />
+      <form onSubmit={handleCekOngkir} className="max-w-4xl mx-auto mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label className="block text-white text-xs font-bold mb-2">
+              Berat Barang (Kg)
+            </label>
+            <div className="flex w-full shadow-sm">
+              <div className="bg-yellow-400 text-black px-3.5 flex items-center justify-center rounded-l-md">
+                <Container size={20} />
+              </div>
+              <input
+                type="number"
+                value={berat}
+                onChange={(e) => setBerat(e.target.value)}
+                placeholder="Contoh: 1"
+                className="w-full px-4 py-3.5 focus:outline-none text-gray-800 bg-white rounded-r-md text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-white text-xs font-bold mb-2">
+              Kota Asal Pengiriman
+            </label>
+            <div className="flex w-full shadow-sm">
+              <div className="bg-yellow-400 text-black px-3.5 flex items-center justify-center rounded-l-md">
+                <MapPinned size={20} />
+              </div>
+              <input
+                type="text"
+                value={kotaAsal}
+                onChange={(e) => setKotaAsal(e.target.value)}
+                placeholder="Contoh: Jakarta"
+                className="w-full px-4 py-3.5 focus:outline-none text-gray-800 bg-white rounded-r-md text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-white text-xs font-bold mb-2">
+              Kota Tujuan
+            </label>
+            <div className="flex w-full shadow-sm">
+              <div className="bg-yellow-400 text-black px-3.5 flex items-center justify-center rounded-l-md">
+                <MapPinCheck size={20} />
+              </div>
+              <input
+                type="text"
+                value={kotaTujuan}
+                onChange={(e) => setKotaTujuan(e.target.value)}
+                placeholder="Contoh: Bandung"
+                className="w-full px-4 py-3.5 focus:outline-none text-gray-800 bg-white rounded-r-md text-sm"
+              />
+            </div>
           </div>
         </div>
-        <div className="">
-          <p className="mb-2">Kota Asal Pengiriman :</p>
-          <div className="flex">
-            <button className="bg-yellow-400 hover:bg-yellow-300 text-black px-2 py-4 transition-colors cursor-pointer rounded-l-sm">
-              <MapPinned />
+
+        <div className="flex justify-center mt-8">
+          <button
+            type="submit"
+            className="w-full md:w-auto bg-yellow-400 text-black px-10 py-3.5 rounded-md font-extrabold cursor-pointer hover:bg-yellow-300 text-sm md:text-base flex items-center justify-center gap-2 shadow-md transition-all"
+          >
+            <BanknoteCheck size={20} />
+            CEK ONGKIR SEKARANG
+          </button>
+        </div>
+      </form>
+
+      {modalBuka && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 text-left shadow-2xl relative">
+            <button
+              onClick={() => setModalBuka(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-1 cursor-pointer"
+            >
+              <X size={20} />
             </button>
-            <input
-              type="text"
-              value={kotaAsal}
-              onChange={(e) => setKotaAsal(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter"}
-              placeholder="Kota Asal Pengiriman "
-              className="w-46 px-4 py-4 focus:outline-none text-gray-700 bg-white  rounded-r-sm"
-            />
+
+            <div className="mb-4">
+              <span className="bg-[#FFCC00] text-gray-950 font-extrabold text-xs px-2.5 py-1 rounded">
+                Hasil Cek Tarif
+              </span>
+              <h3 className="text-xl font-extrabold text-gray-900 mt-2">
+                {kotaAsal} &rarr; {kotaTujuan}
+              </h3>
+              <p className="text-xs text-gray-500 mt-1">
+                Estimasi Berat:{" "}
+                <span className="font-bold text-gray-800">{berat} Kg</span>
+              </p>
+            </div>
+
+            <div className="space-y-3 mt-4">
+              {hasilOngkir?.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-200"
+                >
+                  <div>
+                    <div className="font-bold text-gray-900 text-sm">
+                      {item.layanan}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Estimasi Sampai: {item.estimasi}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-extrabold text-base text-gray-900">
+                      {item.harga}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setModalBuka(false)}
+              className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-3 rounded-xl text-sm transition-colors mt-6 cursor-pointer"
+            >
+              Tutup
+            </button>
           </div>
         </div>
-        <div className="md:px-10">
-          <p className="mb-2">Kota Tujuan :</p>
-          <div className="flex">
-            <button className="bg-yellow-400 hover:bg-yellow-300 text-black px-2 py-4 transition-colors cursor-pointer rounded-l-sm">
-              <MapPinCheck />
-            </button>
-            <input
-              type="text"
-              value={kotaTujuan}
-              onChange={(e) => setKotaTujuan(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter"}
-              placeholder="Kota Tujuan"
-              className="w-46 px-4 py-4 focus:outline-none text-gray-700 bg-white  rounded-r-sm"
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex md:justify-center mt-10 md:mt-1 w-full">
-        <button className="w-full justify-center bg-yellow-400 text-black px-15 py-2 rounded-sm font-medium cursor-pointer hover:bg-yellow-300 md:text-lg flex">
-          <div className="mr-2">
-            <BanknoteCheck />
-          </div>
-          CEK ONGKIR
-        </button>
-      </div>
+      )}
     </div>
   );
 };

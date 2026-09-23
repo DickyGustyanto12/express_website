@@ -93,19 +93,26 @@ const ChatWidget = ({
         teksKirim.toLowerCase().includes("resi")
       ) {
         balasan =
-          "Untuk melacak paket, Kakak dapat memasukkan nomor resi pengiriman melalui menu Pelacakan kami atau informasikan nomor resinya ke CS WhatsApp kami.";
+          "Untuk melacak paket, Kakak dapat memasukkan nomor resi pengiriman melalui menu Pelacakan di halaman web ini.";
       } else if (
         teksKirim.toLowerCase().includes("ongkir") ||
         teksKirim.toLowerCase().includes("tarif")
       ) {
         balasan =
-          "Tarif kami sangat bersaing mulai dari layanan Reguler hingga Same Day Service. Silakan tanyakan rute tujuan spesifik ke WhatsApp CS kami ya!";
+          "Kakak bisa menggunakan fitur Cek Ongkir di halaman utama website kami dengan memasukkan kota asal, kota tujuan, dan berat barang untuk melihat pilihan layanan secara instan!";
       } else if (
         teksKirim.toLowerCase().includes("cabang") ||
         teksKirim.toLowerCase().includes("lokasi")
       ) {
         balasan =
-          "NSS Express memiliki lebih dari 50 cabang di seluruh Indonesia. Kakak bisa melihat peta cabang pada bagian 'Lokasi Cabang' di halaman web ini.";
+          "NSS Express memiliki berbagai titik layanan di seluruh wilayah. Salah satunya di perwakilan utama kami di Slipi, Jakarta Barat.";
+      } else if (
+        teksKirim.toLowerCase().includes("klaim") ||
+        teksKirim.toLowerCase().includes("rusak") ||
+        teksKirim.toLowerCase().includes("kendala")
+      ) {
+        balasan =
+          "Untuk kendala paket atau klaim, silakan langsung terhubung dengan tim CS utama kami melalui tombol WhatsApp di bawah.";
       }
 
       const pesanBaruAdmin: PesanChat = {
@@ -122,7 +129,7 @@ const ChatWidget = ({
     const teksWA = encodeURIComponent(
       `Halo NSS Express, saya ${nama || "Pelanggan"} (${nomorHp || "-"}). Saya ingin bertanya informasi pengiriman.`,
     );
-    window.open(`https://wa.me/6281234567890?text=${teksWA}`, "_blank");
+    window.open(`https://wa.me/628112551010?text=${teksWA}`, "_blank");
   };
 
   return (
@@ -288,6 +295,22 @@ const ChatWidget = ({
                         className="bg-white hover:bg-yellow-100 hover:border-[#FFCC00] border border-gray-300 text-gray-700 text-[11px] md:text-xs px-2.5 py-1.5 rounded-full transition-colors cursor-pointer text-left"
                       >
                         📍 Lokasi Cabang
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleKirimPesan("Bagaimana cara cek ongkos kirim?")
+                        }
+                        className="bg-white hover:bg-yellow-100 hover:border-[#FFCC00] border border-gray-300 text-gray-700 text-[11px] md:text-xs px-2.5 py-1.5 rounded-full transition-colors cursor-pointer text-left"
+                      >
+                        💰 Cara Cek Ongkir
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleKirimPesan("Bagaimana cara melacak nomor resi?")
+                        }
+                        className="bg-white hover:bg-yellow-100 hover:border-[#FFCC00] border border-gray-300 text-gray-700 text-[11px] md:text-xs px-2.5 py-1.5 rounded-full transition-colors cursor-pointer text-left"
+                      >
+                        📦 Cara Lacak Resi
                       </button>
                       <button
                         onClick={handleBukaWhatsAppLangsung}
