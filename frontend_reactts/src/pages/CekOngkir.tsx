@@ -5,8 +5,10 @@ import {
   MapPinCheck,
   BanknoteCheck,
   X,
+  Loader2,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CekOngkir = () => {
   const [berat, setBerat] = useState("");
@@ -14,6 +16,7 @@ const CekOngkir = () => {
   const [kotaTujuan, setKotaTujuan] = useState("");
   const [modalBuka, setModalBuka] = useState(false);
   const [hasilOngkir, setHasilOngkir] = useState<any[] | null>(null);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   const handleCekOngkir = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,21 +33,28 @@ const CekOngkir = () => {
       return;
     }
 
-    const beratNum = parseFloat(berat) || 1;
-    setHasilOngkir([
-      {
-        layanan: "Reguler (REG)",
-        estimasi: "2-3 Hari",
-        harga: `Rp ${(15000 * beratNum).toLocaleString("id-ID")}`,
-      },
-      {
-        layanan: "Next Day (NEXT)",
-        estimasi: "1 Hari",
-        harga: `Rp ${(35000 * beratNum).toLocaleString("id-ID")}`,
-      },
-    ]);
-
+    // Buka modal seketika dalam keadaan loading
     setModalBuka(true);
+    setIsModalLoading(true);
+    setHasilOngkir(null);
+
+    // Simulasi proses perhitungan tarif di dalam modal
+    setTimeout(() => {
+      const beratNum = parseFloat(berat) || 1;
+      setHasilOngkir([
+        {
+          layanan: "Reguler (REG)",
+          estimasi: "2-3 Hari",
+          harga: `Rp ${(15000 * beratNum).toLocaleString("id-ID")}`,
+        },
+        {
+          layanan: "Next Day (NEXT)",
+          estimasi: "1 Hari",
+          harga: `Rp ${(35000 * beratNum).toLocaleString("id-ID")}`,
+        },
+      ]);
+      setIsModalLoading(false);
+    }, 800);
   };
 
   return (
@@ -129,61 +139,87 @@ const CekOngkir = () => {
         </div>
       </form>
 
-      {modalBuka && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 text-left shadow-2xl relative">
-            <button
-              onClick={() => setModalBuka(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-1 cursor-pointer"
+      <AnimatePresence>
+        {modalBuka && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-xs"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-white rounded-2xl max-w-lg w-full p-6 text-left shadow-2xl relative"
             >
-              <X size={20} />
-            </button>
+              <button
+                onClick={() => setModalBuka(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-1 cursor-pointer z-10"
+              >
+                <X size={20} />
+              </button>
 
-            <div className="mb-4">
-              <span className="bg-[#FFCC00] text-gray-950 font-extrabold text-xs px-2.5 py-1 rounded">
-                Hasil Cek Tarif
-              </span>
-              <h3 className="text-xl font-extrabold text-gray-900 mt-2">
-                {kotaAsal} &rarr; {kotaTujuan}
-              </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                Estimasi Berat:{" "}
-                <span className="font-bold text-gray-800">{berat} Kg</span>
-              </p>
-            </div>
-
-            <div className="space-y-3 mt-4">
-              {hasilOngkir?.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-200"
-                >
-                  <div>
-                    <div className="font-bold text-gray-900 text-sm">
-                      {item.layanan}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Estimasi Sampai: {item.estimasi}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-extrabold text-base text-gray-900">
-                      {item.harga}
-                    </div>
-                  </div>
+              {isModalLoading ? (
+                <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                  <Loader2 size={40} className="animate-spin text-[#FFCC00]" />
+                  <p className="text-sm font-semibold text-gray-600">
+                    Menghitung tarif ongkos kirim...
+                  </p>
                 </div>
-              ))}
-            </div>
+              ) : (
+                <div>
+                  <div className="mb-4">
+                    <span className="bg-[#FFCC00] text-gray-950 font-extrabold text-xs px-2.5 py-1 rounded">
+                      Hasil Cek Tarif
+                    </span>
+                    <h3 className="text-xl font-extrabold text-gray-900 mt-2">
+                      {kotaAsal} &rarr; {kotaTujuan}
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Estimasi Berat:{" "}
+                      <span className="font-bold text-gray-800">
+                        {berat} Kg
+                      </span>
+                    </p>
+                  </div>
 
-            <button
-              onClick={() => setModalBuka(false)}
-              className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-3 rounded-xl text-sm transition-colors mt-6 cursor-pointer"
-            >
-              Tutup
-            </button>
-          </div>
-        </div>
-      )}
+                  <div className="space-y-3 mt-4">
+                    {hasilOngkir?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-200"
+                      >
+                        <div>
+                          <div className="font-bold text-gray-900 text-sm">
+                            {item.layanan}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            Estimasi Sampai: {item.estimasi}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-extrabold text-base text-gray-900">
+                            {item.harga}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setModalBuka(false)}
+                    className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-3 rounded-xl text-sm transition-colors mt-6 cursor-pointer"
+                  >
+                    Tutup
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

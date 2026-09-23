@@ -1,11 +1,13 @@
-import { Search, X, Clock, MapPin, Phone, User } from "lucide-react";
+import { Search, X, Clock, MapPin, Phone, User, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Tracking = () => {
   const [kataKunci, setKataKunci] = useState("");
   const [modalBuka, setModalBuka] = useState(false);
   const [hasilTracking, setHasilTracking] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   const dataDummy: Record<string, any> = {
     E12345678: {
@@ -67,17 +69,25 @@ const Tracking = () => {
     const keyword = kataKunci.trim();
     if (!keyword) return;
 
-    if (dataDummy[keyword]) {
-      setHasilTracking(dataDummy[keyword]);
-      setErrorMsg("");
-      setModalBuka(true);
-    } else {
-      setHasilTracking(null);
-      setErrorMsg(
-        "Nomor resi tidak ditemukan. Silakan gunakan nomor uji coba: E12345678",
-      );
-      setModalBuka(true);
-    }
+    // Langsung buka modal dalam keadaan loading
+    setModalBuka(true);
+    setIsModalLoading(true);
+    setHasilTracking(null);
+    setErrorMsg("");
+
+    // Simulasi proses pencarian data di dalam modal
+    setTimeout(() => {
+      if (dataDummy[keyword]) {
+        setHasilTracking(dataDummy[keyword]);
+        setErrorMsg("");
+      } else {
+        setHasilTracking(null);
+        setErrorMsg(
+          "Nomor resi tidak ditemukan. Silakan gunakan nomor uji coba: E12345678",
+        );
+      }
+      setIsModalLoading(false);
+    }, 800);
   };
 
   return (
@@ -113,135 +123,155 @@ const Tracking = () => {
         </div>
       </form>
 
-      {modalBuka && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-xl w-full p-6 text-left shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setModalBuka(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-1 cursor-pointer"
+      <AnimatePresence>
+        {modalBuka && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-xs"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-white rounded-2xl max-w-xl w-full p-6 text-left shadow-2xl relative max-h-[90vh] overflow-y-auto"
             >
-              <X size={20} />
-            </button>
+              <button
+                onClick={() => setModalBuka(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-1 cursor-pointer z-10"
+              >
+                <X size={20} />
+              </button>
 
-            {hasilTracking ? (
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="bg-[#FFCC00] text-gray-950 font-extrabold text-xs px-2.5 py-1 rounded">
-                    AWB: {hasilTracking.awb}
-                  </span>
-                  <span className="bg-green-100 text-green-800 font-bold text-xs px-2.5 py-1 rounded">
-                    {hasilTracking.status}
-                  </span>
+              {isModalLoading ? (
+                <div className="flex flex-col items-center justify-center py-16 space-y-4">
+                  <Loader2 size={40} className="animate-spin text-[#FFCC00]" />
+                  <p className="text-sm font-semibold text-gray-600">
+                    Sedang memuat data pelacakan...
+                  </p>
                 </div>
-
-                <h3 className="text-lg font-bold text-gray-900 mb-4">
-                  Detail Pengiriman
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
-                    <span className="text-xs font-extrabold text-gray-400 uppercase tracking-wider block">
-                      Pengirim
+              ) : hasilTracking ? (
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="bg-[#FFCC00] text-gray-950 font-extrabold text-xs px-2.5 py-1 rounded">
+                      AWB: {hasilTracking.awb}
                     </span>
-                    <div className="flex items-start gap-2 text-xs text-gray-800 font-bold">
-                      <User
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.pengirim.nama}</span>
+                    <span className="bg-green-100 text-green-800 font-bold text-xs px-2.5 py-1 rounded">
+                      {hasilTracking.status}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">
+                    Detail Pengiriman
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
+                      <span className="text-xs font-extrabold text-gray-400 uppercase tracking-wider block">
+                        Pengirim
+                      </span>
+                      <div className="flex items-start gap-2 text-xs text-gray-800 font-bold">
+                        <User
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.pengirim.nama}</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-xs text-gray-600">
+                        <MapPin
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.pengirim.alamat}</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-xs text-gray-600">
+                        <Phone
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.pengirim.noHp}</span>
+                      </div>
                     </div>
-                    <div className="flex items-start gap-2 text-xs text-gray-600">
-                      <MapPin
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.pengirim.alamat}</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-xs text-gray-600">
-                      <Phone
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.pengirim.noHp}</span>
+
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
+                      <span className="text-xs font-extrabold text-gray-400 uppercase tracking-wider block">
+                        Penerima
+                      </span>
+                      <div className="flex items-start gap-2 text-xs text-gray-800 font-bold">
+                        <User
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.penerima.nama}</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-xs text-gray-600">
+                        <MapPin
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.penerima.alamat}</span>
+                      </div>
+                      <div className="flex items-start gap-2 text-xs text-gray-600">
+                        <Phone
+                          size={14}
+                          className="text-gray-500 mt-0.5 shrink-0"
+                        />
+                        <span>{hasilTracking.penerima.noHp}</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-2">
-                    <span className="text-xs font-extrabold text-gray-400 uppercase tracking-wider block">
-                      Penerima
-                    </span>
-                    <div className="flex items-start gap-2 text-xs text-gray-800 font-bold">
-                      <User
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.penerima.nama}</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-xs text-gray-600">
-                      <MapPin
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.penerima.alamat}</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-xs text-gray-600">
-                      <Phone
-                        size={14}
-                        className="text-gray-500 mt-0.5 shrink-0"
-                      />
-                      <span>{hasilTracking.penerima.noHp}</span>
-                    </div>
+                  <h4 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider">
+                    Riwayat Perjalanan
+                  </h4>
+
+                  <div className="space-y-4 border-l-2 border-yellow-400 pl-4 ml-2 my-2">
+                    {hasilTracking.riwayat.map((item: any, idx: number) => (
+                      <div key={idx} className="relative">
+                        <div className="absolute -left-[21px] top-1 w-3.5 h-3.5 bg-[#FFCC00] rounded-full border-2 border-white shadow-xs"></div>
+                        <div className="text-xs text-gray-500 flex items-center gap-2">
+                          <span className="font-semibold text-gray-700">
+                            {item.tanggal}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <Clock size={12} /> {item.jam}
+                          </span>
+                        </div>
+                        <div className="text-sm font-medium text-gray-800 mt-0.5">
+                          {item.keterangan}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
 
-                <h4 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider">
-                  Riwayat Perjalanan
-                </h4>
-
-                <div className="space-y-4 border-l-2 border-yellow-400 pl-4 ml-2 my-2">
-                  {hasilTracking.riwayat.map((item: any, idx: number) => (
-                    <div key={idx} className="relative">
-                      <div className="absolute -left-[21px] top-1 w-3.5 h-3.5 bg-[#FFCC00] rounded-full border-2 border-white shadow-xs"></div>
-                      <div className="text-xs text-gray-500 flex items-center gap-2">
-                        <span className="font-semibold text-gray-700">
-                          {item.tanggal}
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={12} /> {item.jam}
-                        </span>
-                      </div>
-                      <div className="text-sm font-medium text-gray-800 mt-0.5">
-                        {item.keterangan}
-                      </div>
-                    </div>
-                  ))}
+                  <button
+                    onClick={() => setModalBuka(false)}
+                    className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-3 rounded-xl text-sm transition-colors mt-6 cursor-pointer"
+                  >
+                    Tutup
+                  </button>
                 </div>
-
-                <button
-                  onClick={() => setModalBuka(false)}
-                  className="w-full bg-gray-950 hover:bg-gray-900 text-white font-bold py-3 rounded-xl text-sm transition-colors mt-6 cursor-pointer"
-                >
-                  Tutup
-                </button>
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <div className="text-red-600 font-bold text-base mb-2">
-                  Resi Tidak Ditemukan
+              ) : (
+                <div className="text-center py-8">
+                  <div className="text-red-600 font-bold text-base mb-2">
+                    Resi Tidak Ditemukan
+                  </div>
+                  <p className="text-gray-600 text-sm mb-6">{errorMsg}</p>
+                  <button
+                    onClick={() => setModalBuka(false)}
+                    className="bg-gray-900 text-white px-6 py-2.5 rounded-xl text-sm font-bold cursor-pointer"
+                  >
+                    Coba Lagi
+                  </button>
                 </div>
-                <p className="text-gray-600 text-sm mb-6">{errorMsg}</p>
-                <button
-                  onClick={() => setModalBuka(false)}
-                  className="bg-gray-900 text-white px-6 py-2.5 rounded-xl text-sm font-bold cursor-pointer"
-                >
-                  Coba Lagi
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
