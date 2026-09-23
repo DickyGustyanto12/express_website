@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  Search,
-  Container,
-  MapPinned,
-  MapPinCheck,
-  BanknoteCheck,
-} from "lucide-react";
+import { Container, MapPinned, MapPinCheck, BanknoteCheck } from "lucide-react";
 
 const CekOngkir = () => {
   const [berat, setBerat] = useState("");
