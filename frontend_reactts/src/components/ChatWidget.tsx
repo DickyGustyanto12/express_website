@@ -40,7 +40,9 @@ const ChatWidget = ({
   const [pesanInput, setPesanInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [daftarPesan, setDaftarPesan] = useState<PesanChat[]>([]);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,6 +51,13 @@ const ChatWidget = ({
   useEffect(() => {
     scrollToBottom();
   }, [daftarPesan, isTyping]);
+
+  // Mengembalikan fokus kursor ke kolom input secara otomatis setelah balasan selesai atau saat chat dimulai
+  useEffect(() => {
+    if (!isTyping && sudahMulai) {
+      inputRef.current?.focus();
+    }
+  }, [isTyping, sudahMulai]);
 
   const dapatkanWaktuSekarang = () => {
     const d = new Date();
@@ -103,7 +112,7 @@ const ChatWidget = ({
     setIsTyping(true);
 
     try {
-      const apiKey = "AQ.Ab8RN6JmDA4bHWHtkL3gL3NQDtD3PRBhFR9dGuyhtw6m1HO_UA";
+      const apiKey = "AQ.Ab8RN6K9n-YwNRFDYyJt1QvCi0BOAs0IOVztSQTJ6s4re7ajIQ";
 
       if (!apiKey) {
         throw new Error("Jangan lupa memasukkan API Key Gemini milikmu!");
@@ -324,6 +333,7 @@ const ChatWidget = ({
                 <div className="p-2.5 bg-white border-t border-gray-200 shrink-0">
                   <div className="flex items-center gap-1.5">
                     <input
+                      ref={inputRef}
                       type="text"
                       value={pesanInput}
                       onChange={(e) => setPesanInput(e.target.value)}
