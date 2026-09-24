@@ -4,6 +4,7 @@ import { Search, MapPin, ExternalLink } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import Swal from "sweetalert2";
 
 const penandaKuning = L.icon({
   iconUrl:
@@ -79,7 +80,18 @@ const Cabang = () => {
     if (hasilPencarian) {
       setCabangTerpilih(hasilPencarian);
     } else {
-      alert("Maaf, cabang tidak ditemukan.");
+      Swal.fire({
+        title: "Cabang Tidak Ditemukan",
+        text: "Maaf, cabang yang Anda cari belum tersedia.",
+        icon: "warning",
+        confirmButtonText: "Mengerti",
+        confirmButtonColor: "#FFCC00",
+        customClass: {
+          confirmButton: "!text-black font-bold",
+        },
+        color: "#111827",
+        background: "#ffffff",
+      });
     }
   };
 
@@ -110,7 +122,13 @@ const Cabang = () => {
               </p>
             </div>
 
-            <div className="flex w-full bg-white rounded-lg shadow-sm border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-black transition-all">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                tanganiPencarian();
+              }}
+              className="flex w-full bg-white rounded-lg shadow-sm border border-gray-300 overflow-hidden focus-within:ring-2 focus-within:ring-black transition-all"
+            >
               <div className="pl-4 flex items-center justify-center text-gray-400">
                 <Search size={20} />
               </div>
@@ -118,17 +136,16 @@ const Cabang = () => {
                 type="text"
                 value={kataKunci}
                 onChange={(e) => setKataKunci(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && tanganiPencarian()}
                 placeholder="Masukkan kota atau kecamatan"
                 className="w-full px-4 py-4 focus:outline-none text-gray-700"
               />
               <button
-                onClick={tanganiPencarian}
+                type="submit"
                 className="bg-black hover:bg-gray-800 text-white font-bold px-8 py-4 transition-colors cursor-pointer"
               >
                 Cari
               </button>
-            </div>
+            </form>
 
             {cabangTerpilih && (
               <motion.div
