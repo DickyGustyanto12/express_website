@@ -112,7 +112,7 @@ const ChatWidget = ({
     setIsTyping(true);
 
     try {
-      const apiKey = "AQ.Ab8RN6K9n-YwNRFDYyJt1QvCi0BOAs0IOVztSQTJ6s4re7ajIQ";
+      const apiKey = "AQ.Ab8RN6LM2_69zAw9q2Tj6qvdB16zeqRUJ2lme_chzrGD4IpglQ";
 
       if (!apiKey) {
         throw new Error("Jangan lupa memasukkan API Key Gemini milikmu!");
